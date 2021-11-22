@@ -114,8 +114,6 @@ func getResponse(prod *[]models.Product, pur []*purchases.ProductsList,
 		return fmt.Errorf("products not found")
 	}
 	var purchaseMap = ConvertPurchaseToMap(&pur)
-	fmt.Println("**********", purchaseMap)
-	fmt.Println("**********", prod)
 	if len(purchaseMap) != len(*prod) {
 		return fmt.Errorf("product item not found")
 	}

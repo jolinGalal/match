@@ -1,4 +1,4 @@
-package user
+package purchase
 
 import (
 	"strings"
@@ -12,7 +12,7 @@ import (
 type GormBuilder struct {
 	Mock     sqlmock.Sqlmock
 	MockConn sqlmock.Sqlmock
-	conn     *gorm.DB
+	Conn     *gorm.DB
 	DB       *gorm.DB
 }
 
@@ -106,7 +106,7 @@ func (g *GormBuilder) Delete(table, id interface{}) error {
 
 // Rest ...
 func (g *GormBuilder) Rest() database.GormI {
-	// g.DB = g.conn
+	//	g.DB = g.Conn
 	// g.Mock = g.MockConn
 	return g
 }

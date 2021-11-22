@@ -21,12 +21,14 @@ func (s *purchasessrvc) Deposit(ctx context.Context, p *purchases.DepositPayload
 		Where(fmt.Sprintf(" %s = %d", userI.ID(), p.ID)).
 		Find(userObj)
 	if err != nil {
-		return nil
+		return err
 	}
 	if userObj == nil {
 		return fmt.Errorf("Id not found")
 	}
+	fmt.Println(" userObj.UserID", userObj.UserID)
 	if userObj.UserID == 0 {
+
 		return fmt.Errorf("Id not found")
 	}
 	var query = fmt.Sprintf("update %s set user_deposit=%d where %s=%d", userI.GetTableName(),

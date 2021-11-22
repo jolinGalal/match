@@ -32,6 +32,7 @@ func NewPurchases(logger *log.Logger, auth auth.AuthI, db database.GormI) purcha
 // JWTAuth implements the authorization logic for service "purchases" for the
 // "jwt" security scheme.
 func (s *purchasessrvc) JWTAuth(ctx context.Context, token string, scheme *security.JWTScheme) (context.Context, error) {
+
 	if token == "" {
 		return ctx, users.MakeUnauthorized(
 			fmt.Errorf("missing authentication header"),
@@ -47,12 +48,12 @@ func (s *purchasessrvc) JWTAuth(ctx context.Context, token string, scheme *secur
 	if !s.auth.IsUser() {
 		return ctx, users.MakeUnauthorized(fmt.Errorf("you are not a user"))
 	}
-
 	s.db.Rest()
 	var userObj = &models.User{}
 	count, err := s.db.Model(userObj).
 		Where(fmt.Sprintf(" %s = %d", userI.ID(), s.auth.GetUserID())).
 		Count()
+
 	if err != nil {
 		return ctx, err
 	}
